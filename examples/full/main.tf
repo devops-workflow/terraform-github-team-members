@@ -1,5 +1,5 @@
 module "org-members" {
-  source = "devops-workflow/members/github"
+  source  = "devops-workflow/members/github"
   version = "0.0.1"
 
   providers = {
