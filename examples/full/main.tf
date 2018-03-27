@@ -8,11 +8,14 @@ module "org-members" {
 
   users = [
     {
-      username = "user1"
+      username = "user-1"
     },
     {
-      username = "user2"
-      role     = "owner"
+      username = "user-2"
+      role     = "admin"
+    },
+    {
+      username = "user-3"
     },
   ]
 }
@@ -34,9 +37,8 @@ module "team" {
 }
 
 module "team-members" {
-  source     = "../../"
-  depends_on = ["module.org-members", "module.team"]
-  team_id    = "${element(module.team.ids, 0)}"
+  source  = "../../"
+  team_id = "${element(module.team.ids, 0)}"
 
   providers = {
     github = "github.devops"
@@ -44,10 +46,13 @@ module "team-members" {
 
   users = [
     {
-      username = "user1"
+      username = "user-1"
     },
     {
-      username = "user2"
+      username = "user-2"
+    },
+    {
+      username = "user-3"
       role     = "maintainer"
     },
   ]
