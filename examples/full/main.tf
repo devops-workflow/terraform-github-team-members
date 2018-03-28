@@ -1,23 +1,11 @@
 module "org-members" {
   source  = "devops-workflow/members/github"
-  version = "0.0.1"
+  version = "0.1.0"
+  users   = "${var.users-org}"
 
   providers = {
     github = "github.devops"
   }
-
-  users = [
-    {
-      username = "user-1"
-    },
-    {
-      username = "user-2"
-      role-org = "admin"
-    },
-    {
-      username = "user-3"
-    },
-  ]
 }
 
 module "team" {
@@ -30,15 +18,29 @@ module "team" {
 
   teams = [
     {
+      name        = "team-everyone"
+      description = "Team for Terraform testing"
+    },
+    {
       name        = "team-test"
       description = "Team for Terraform testing"
     },
   ]
 }
 
-module "team-members" {
+module "team-everyone" {
   source  = "../../"
-  team_id = "${element(module.team.ids, 0)}"
+  team_id = "${element(module.team.ids, index(module.team.names, "team-everyone"))}"
+  users   = "${var.users-org}"
+
+  providers = {
+    github = "github.devops"
+  }
+}
+
+module "team-test" {
+  source  = "../../"
+  team_id = "${element(module.team.ids, index(module.team.names, "team-test"))}"
 
   providers = {
     github = "github.devops"
@@ -46,14 +48,14 @@ module "team-members" {
 
   users = [
     {
-      username = "user-1"
+      username  = "user-1"
+      role-team = "maintainer"
     },
     {
       username = "user-2"
     },
     {
-      username  = "user-3"
-      role-team = "maintainer"
+      username = "user-3"
     },
   ]
 }
