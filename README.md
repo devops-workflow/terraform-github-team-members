@@ -17,7 +17,7 @@ module "team-members" {
     },
     {
       username  = "user2"
-      role      = "maintainer"
+      role-team = "maintainer"
     },
   ]
 }

@@ -14,7 +14,7 @@ resource "github_team_membership" "this" {
   count    = "${module.enabled.value ? length(var.users) : 0}"
   team_id  = "${var.team_id}"
   username = "${lookup(var.users[count.index], "username")}"
-  role     = "${lookup(var.users[count.index], "role", "member")}"
+  role     = "${lookup(var.users[count.index], "role-team", "member")}"
 
   # member or maintainer
 }

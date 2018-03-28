@@ -12,7 +12,7 @@ module "org-members" {
     },
     {
       username = "user-2"
-      role     = "admin"
+      role-org = "admin"
     },
     {
       username = "user-3"
@@ -52,8 +52,8 @@ module "team-members" {
       username = "user-2"
     },
     {
-      username = "user-3"
-      role     = "maintainer"
+      username  = "user-3"
+      role-team = "maintainer"
     },
   ]
 }
